@@ -1,4 +1,5 @@
 import React, {useMemo, useRef, useState} from 'react';
+import { usePosts } from './hooks/usePosts';
 import Counter from './components/Counter';
 import ClassCounter from './components/ClassCounter';
 import "./styles/App.css";
@@ -12,25 +13,10 @@ import PostFilter from './components/PostFilter';
 import MyModal from './components/UI/MyModal/MyModal';
 
 function App() {
-    const [posts, setPosts] = useState([
-        {id: 1, title: 'aaa', body: 'Description1'},
-        {id: 2, title: 'ggg', body: 'Description3'},
-        {id: 3, title: 'bbb', body: 'Description2'},
-    ])
-
+    const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false);
-
-    const sortedPosts = useMemo(() => {
-        if(filter.sort) {
-            return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-        }
-        return posts;
-    }, [filter.sort, posts])
-
-    const sortedAndSearchedPosts = useMemo(() => {
-        return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
-    }, [filter.query, sortedPosts])
+    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
