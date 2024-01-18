@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+## Здесь я прохожу курс по отрисовке, удалению, редактированию постов.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
